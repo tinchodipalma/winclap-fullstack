@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Winclap Test - Martin Di Palma</title>
+        <link rel="stylesheet" type="text/css" href="dist/css/vendor.css">
+        <link rel="stylesheet" type="text/css" href="dist/css/app.css">
+    </head>
+    <body>
+        <div class="col-xs-12 text-center">
+            <h1>Winclap Frontend Test</h1>
+            <h3>Martín Di Palma</h3>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div id="vueTable" class="col-xs-12 col-lg-8">
+                    <div class="column-selector col-xs-12">
+                        <div class="col-xs-0 col-md-3"></div>
+                        <div class="col-xs-4 col-md-3 text-center" v-for="label, i in labels">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" v-bind:id="'checklabel-' + i" v-bind:checked="!isHidden(i)" v-on:click="toggleColumn(i)"> {{ label.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive col-xs-12">
+                        <table class="table table-striped" id="dataTable">
+            			<thead>
+            				<tr>
+            					<th>Date</th>
+            					<th
+                                    v-for="label, i in labels"
+                                    v-bind:id="'column-' + label.key"
+                                    v-bind:class="{ hide: isHidden(i) }">
+                                    {{ label.label }}
+                                </th>
+                            </tr>
+            			</thead>
+                        <tbody>
+                            <tr v-for="obj in data">
+                                <td>{{ moment(obj.date).format(dateFormat) }}</td>
+                                <td
+                                    v-for="value, i in obj.values"
+                                    v-bind:class="{ hide: isHidden(i) }">
+                                    {{ value }}
+                                </td>
+                            </tr>
+                        </tbody>
+            		</table>
+                    </div>
+                </div>
+
+                <div id="vueChart" class="col-xs-12 col-lg-4">
+                    <div id="lineChart"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="dist/js/vendor.js"></script>
+        <script src="dist/js/app.js"></script>
+    </body>
+</html>
